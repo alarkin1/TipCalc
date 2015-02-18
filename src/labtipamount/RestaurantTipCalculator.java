@@ -23,7 +23,7 @@ public class RestaurantTipCalculator implements TipCalculatorStrategy {
     private double getBillForMeal() {
         System.out.print("Enter The Cost Of The Meal: $");
         //validation required
-        return keyboard.nextDouble();
+        return 10;
     }
 
     private float getPercentage() {
