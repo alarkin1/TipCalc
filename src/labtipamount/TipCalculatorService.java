@@ -13,7 +13,7 @@ public class TipCalculatorService {
 
     // TipCalculatorStrategy restaurantTip = new RestaurantTipCalculatorService();
 
-    public void processTip(TipCalculatorStrategy tipType) {;
+    public void processTip(TipCalculatorStrategy tipType) {
         tipType.outputTipAmount(tipType.calculateTip());
     }
 }

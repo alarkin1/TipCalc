@@ -5,15 +5,19 @@
  */
 package labtipamount;
 
-import java.util.Scanner;
-
 /**
  *
  * @author alarkin1
  */
 public class TaxiTipCalculator implements TipCalculatorStrategy {
 
-    private Scanner keyboard = new Scanner(System.in);
+    private TipInputStrategy inputType;
+    private double minimumTipBaseLine;
+    private double minimumTip;
+            
+    public void setTipInputType(TipInputStrategy inputType) {
+        this.inputType = inputType;
+    }
 
     public double calculateTip() {
         return getCabFare() + getLuggageCost();
@@ -24,16 +28,13 @@ public class TaxiTipCalculator implements TipCalculatorStrategy {
     }
 
     private double getCabFare() {
-        System.out.print("Enter total cab fare: $");
-        double cabFare = keyboard.nextDouble();
-        //needs validation
+        double cabFare = inputType.takeInputRetDouble("Enter Cab Fare: $");
         return (cabFare < .25) ? .15 : cabFare * .15;
     }
 
     private int getLuggageCost() {
-        System.out.print("Enter number of bags the driver helped with: $");
-        int numberOfBags = keyboard.nextInt();
-        //needs validation
+
+        int numberOfBags = inputType.takeInputRetInt("Enter the number of bags the driver helped with: $");
         return (numberOfBags < 5) ? numberOfBags : numberOfBags * 2;
     }
 }

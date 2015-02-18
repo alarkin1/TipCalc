@@ -5,19 +5,20 @@
  */
 package labtipamount;
 
-import java.util.Scanner;
-
 /**
  *
  * @author alarkin1
  */
 public class RestaurantTipCalculator implements TipCalculatorStrategy {
 
-    private Scanner keyboard = new Scanner(System.in);
+    private TipInputStrategy inputType;
 
+    public void setTipInputType(TipInputStrategy inputType) {
+        this.inputType = inputType;
+    }
 
     public double calculateTip() {
-        return getBillForMeal() * (getPercentage()/100);
+        return getBillForMeal() * (getPercentage() / 100);
     }
 
     private double getBillForMeal() {
@@ -29,11 +30,11 @@ public class RestaurantTipCalculator implements TipCalculatorStrategy {
     private float getPercentage() {
         System.out.print("Enter the percentage that you would like to tip the server example(10,20,30):  ");
         //validation required
-        return keyboard.nextFloat();
+        return 1;
     }
 
     public void outputTipAmount(double tipAmount) {
-        System.out.println("Tip the server: $" + (Math.round(tipAmount * 100)/100));
+        System.out.println("Tip the server: $" + (Math.round(tipAmount * 100) / 100));
         //Needs abstraction to output tip in different ways
     }
 }

@@ -12,4 +12,5 @@ package labtipamount;
 public interface TipCalculatorStrategy {
    public abstract double calculateTip();
    public abstract void outputTipAmount(double tipAmount);
+   public abstract void setTipInputType(TipInputStrategy inputType);
 }
