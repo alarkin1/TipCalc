@@ -11,9 +11,10 @@ package labtipamount;
  */
 public class TipCalculatorService {
 
-    // TipCalculatorStrategy restaurantTip = new RestaurantTipCalculatorService();
-
-    public void processTip(TipCalculatorStrategy tipType) {
-        tipType.outputTipAmount(tipType.calculateTip());
+    public void processTip(TipCalculatorStrategy tipType, TipOutputStrategy outputType, TipInputStrategy inputType) {
+        tipType.setTipInputType(inputType);
+        tipType.setTipOutputType(outputType);
+        tipType.forwardTipAmount(tipType.calculateTip());
     }
+
 }

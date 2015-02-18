@@ -12,19 +12,30 @@ package labtipamount;
 public class TaxiTipCalculator implements TipCalculatorStrategy {
 
     private TipInputStrategy inputType;
+    private TipOutputStrategy outputType;
     private double minimumTipBaseLine;
     private double minimumTip;
-            
+
+    @Override
     public void setTipInputType(TipInputStrategy inputType) {
         this.inputType = inputType;
     }
 
+    @Override
+    public void setTipOutputType(TipOutputStrategy outputType) {
+        this.outputType = outputType;
+    }
+
+    @Override
     public double calculateTip() {
         return getCabFare() + getLuggageCost();
     }
 
-    public void outputTipAmount(double tipAmount) {
-        System.out.println("The tip is: $" + tipAmount);
+    @Override
+    public void forwardTipAmount(double tipAmount) {
+        outputType.outputTip(calculateTip(), "The Tip is");
+        //System.out.println("Tip the server: $" + (Math.round(tipAmount * 100) / 100));
+        //Needs abstraction to output tip in different ways
     }
 
     private double getCabFare() {

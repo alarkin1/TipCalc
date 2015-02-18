@@ -16,7 +16,7 @@ public class Startup {
      */
     public static void main(String[] args) {
         TipCalculatorService tipCalculatorMaster = new TipCalculatorService();
-        tipCalculatorMaster.processTip(new RestaurantTipCalculator());
+        tipCalculatorMaster.processTip(new RestaurantTipCalculator(), new TipOutputConsole(), new TipInputConsole());
     }
     
 }

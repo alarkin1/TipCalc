@@ -12,29 +12,36 @@ package labtipamount;
 public class RestaurantTipCalculator implements TipCalculatorStrategy {
 
     private TipInputStrategy inputType;
+    private TipOutputStrategy outputType;
 
+    @Override
     public void setTipInputType(TipInputStrategy inputType) {
         this.inputType = inputType;
     }
 
+    @Override
+    public void setTipOutputType(TipOutputStrategy outputType) {
+        this.outputType = outputType;
+    }
+
+    @Override
     public double calculateTip() {
         return getBillForMeal() * (getPercentage() / 100);
     }
 
     private double getBillForMeal() {
-        System.out.print("Enter The Cost Of The Meal: $");
-        //validation required
-        return 10;
+        double billForMeal = inputType.takeInputRetDouble("Enter The Cost Of The Meal: $");
+        return billForMeal;
     }
 
-    private float getPercentage() {
-        System.out.print("Enter the percentage that you would like to tip the server example(10,20,30):  ");
-        //validation required
-        return 1;
+    private double getPercentage() {
+        return inputType.takeInputRetDouble("Enter the percentage that you would like to tip the server example(10,20,30): ");
     }
 
-    public void outputTipAmount(double tipAmount) {
-        System.out.println("Tip the server: $" + (Math.round(tipAmount * 100) / 100));
+    @Override
+    public void forwardTipAmount(double tipAmount) {
+        outputType.outputTip(tipAmount, "The Tip is");
+        //System.out.println("Tip the server: $" + (Math.round(tipAmount * 100) / 100));
         //Needs abstraction to output tip in different ways
     }
 }
