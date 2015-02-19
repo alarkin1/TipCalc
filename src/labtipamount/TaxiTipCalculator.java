@@ -13,6 +13,7 @@ public class TaxiTipCalculator implements TipCalculatorStrategy {
 
     private TipInputStrategy inputType;
     private TipOutputStrategy outputType;
+    private double qualityPercentage;
     private double minimumTipBaseLine;
     private double minimumTip;
 
@@ -28,24 +29,40 @@ public class TaxiTipCalculator implements TipCalculatorStrategy {
 
     @Override
     public double calculateTip() {
-        return getCabFare() + getLuggageCost();
+        setMinimumTip();
+        setQualityPercentage();
+        setMinimumTipBaseLine();
+        return (inputCabFare() + inputLuggageCost());
     }
 
     @Override
     public void forwardTipAmount(double tipAmount) {
-        outputType.outputTip(calculateTip(), "The Tip is");
-        //System.out.println("Tip the server: $" + (Math.round(tipAmount * 100) / 100));
-        //Needs abstraction to output tip in different ways
+        outputType.outputTip(tipAmount, "The Tip is");
     }
 
-    private double getCabFare() {
-        double cabFare = inputType.takeInputRetDouble("Enter Cab Fare: $");
-        return (cabFare < .25) ? .15 : cabFare * .15;
+    private void setMinimumTipBaseLine() {
+        minimumTipBaseLine = inputType.takeInputRetDouble("Enter Maximum cab fare for the minimum tip: $");
+        System.out.println(minimumTipBaseLine);
     }
 
-    private int getLuggageCost() {
+    private void setMinimumTip() {
+        minimumTip = inputType.takeInputRetDouble("Enter Minimum tip: $");
+        System.out.println(minimumTip);
+    }
 
-        int numberOfBags = inputType.takeInputRetInt("Enter the number of bags the driver helped with: $");
+    private void setQualityPercentage() {
+        qualityPercentage = (inputType.takeInputRetDouble("Enter the percentage of the cab fare to give the driver, example(10,20,30): ") / 100);
+        System.out.println(qualityPercentage);
+    }
+
+    private double inputCabFare() {
+        double cabFare = inputType.takeInputRetDouble("ENTER COST OF TAXI RIDE: $");
+        return (cabFare < minimumTipBaseLine) ? minimumTip : cabFare * qualityPercentage;
+    }
+
+    private int inputLuggageCost() {
+        int numberOfBags = inputType.takeInputRetInt("Enter the how many pieces of luggage the driver helped with: ");
         return (numberOfBags < 5) ? numberOfBags : numberOfBags * 2;
     }
+    
 }

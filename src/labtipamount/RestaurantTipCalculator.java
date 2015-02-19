@@ -30,8 +30,7 @@ public class RestaurantTipCalculator implements TipCalculatorStrategy {
     }
 
     private double getBillForMeal() {
-        double billForMeal = inputType.takeInputRetDouble("Enter The Cost Of The Meal: $");
-        return billForMeal;
+        return inputType.takeInputRetDouble("Enter The Cost Of The Meal: $");
     }
 
     private double getPercentage() {
@@ -41,7 +40,5 @@ public class RestaurantTipCalculator implements TipCalculatorStrategy {
     @Override
     public void forwardTipAmount(double tipAmount) {
         outputType.outputTip(tipAmount, "The Tip is");
-        //System.out.println("Tip the server: $" + (Math.round(tipAmount * 100) / 100));
-        //Needs abstraction to output tip in different ways
     }
 }
